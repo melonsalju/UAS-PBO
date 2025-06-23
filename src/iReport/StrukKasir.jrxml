@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fac15639-3d50-4df7-be0d-39ba75de53c8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -13,9 +16,6 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM products;]]>
 	</queryString>
-	<field name="products_id" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="barcode" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -31,26 +31,6 @@
 	<field name="harga_jual" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<group name="products_id">
-		<groupExpression><![CDATA[$F{products_id}]]></groupExpression>
-		<groupHeader>
-			<band height="37">
-				<frame>
-					<reportElement mode="Opaque" x="0" y="7" width="555" height="24" forecolor="#B89F7D" backcolor="#000000" uuid="b616fdac-4518-423b-87c7-3aa6a5ac91d9"/>
-					<textField isStretchWithOverflow="true">
-						<reportElement style="SubTitle" isPrintRepeatedValues="false" x="2" y="0" width="479" height="24" forecolor="#FFFFFF" uuid="73f40db1-63a3-4684-baf0-c2f53f616f34"/>
-						<textElement>
-							<font isBold="false"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{products_id}]]></textFieldExpression>
-					</textField>
-				</frame>
-			</band>
-		</groupHeader>
-		<groupFooter>
-			<band height="6"/>
-		</groupFooter>
-	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -58,7 +38,7 @@
 		<band height="132" splitType="Stretch">
 			<image>
 				<reportElement x="456" y="0" width="99" height="132" uuid="4f68a04b-8976-4574-ab5b-bd46c3b0a732"/>
-				<imageExpression><![CDATA["cherry.jpg"]]></imageExpression>
+				<imageExpression>(new java.io.ByteArrayInputStream(net.sf.jasperreports.engine.util.JRLoader.loadBytes(getClass().getResourceAsStream("/iReport/cherry.jpg"))))</imageExpression>
 			</image>
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="9f30bd36-a980-437b-8438-b728006a10bf"/>

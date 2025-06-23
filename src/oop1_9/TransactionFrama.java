@@ -4,12 +4,25 @@
  */
 package oop1_9;
 
+import DBConnection.DBConnect;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -29,8 +42,44 @@ public class TransactionFrama extends javax.swing.JFrame {
         tb.addColumn("Barcode");
         tb.addColumn("SKU");
         tb.addColumn("Nama");
-        tb.addColumn("Harga");
+        tb.addColumn("Harga Jual");
+        tb.addColumn("Harga Beli");
         jTable1.setModel(tb);
+    }
+    
+    private void initReport() {
+        DBConnect db = new DBConnect();
+        
+        DefaultTableModel reportModel = new DefaultTableModel();
+        reportModel.setColumnIdentifiers(new Object[]{
+            "barcode", "sku", "name", "harga_jual", "harga_beli"
+        });
+
+        try {
+            JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\StrukKasir.jrxml");
+            
+            for (int i = 0; i < tb.getRowCount(); i++) {
+                reportModel.addRow(new Object[]{
+                    tb.getValueAt(i, 0), // barcode
+                    tb.getValueAt(i, 1), // sku
+                    tb.getValueAt(i, 2),  // name
+                    tb.getValueAt(i, 3),  // harga_beli
+                    tb.getValueAt(i, 4)  // harga_jual
+                });
+            }
+            
+            JRTableModelDataSource datas = new JRTableModelDataSource(reportModel);
+            
+            Map<String, Object> params = new HashMap<>();
+            
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            
+            JasperPrint jp = JasperFillManager.fillReport(jr, params, datas);
+            
+            JasperViewer.viewReport(jp, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -86,6 +135,11 @@ public class TransactionFrama extends javax.swing.JFrame {
         });
 
         initReportButton.setText("Cetak Struk");
+        initReportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                initReportButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,14 +198,16 @@ public class TransactionFrama extends javax.swing.JFrame {
             ResultSet rs = stm.executeQuery("select * from products where sku = '" + sku + "'");
 //            harga = 0;
             while(rs.next()){
-                int harga = rs.getInt("harga_jual");
+                int harga_jual = rs.getInt("harga_jual");
+                int harga_beli = rs.getInt("harga_beli");
                 tb.addRow(new Object[]{
                     rs.getString("barcode"),
                     rs.getString("sku"),
                     rs.getString("name"),
-                    harga
+                    harga_jual,
+                    harga_beli
                 });
-                totalHarga += harga;
+                totalHarga += harga_jual;
             }
             
             lblTotal.setText("<html>Total Belanja<br><b>" + totalHarga + "</b></html>");
@@ -170,6 +226,11 @@ public class TransactionFrama extends javax.swing.JFrame {
         pos.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_navigateToPOSActionPerformed
+
+    private void initReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initReportButtonActionPerformed
+        // TODO add your handling code here:
+        this.initReport();
+    }//GEN-LAST:event_initReportButtonActionPerformed
 
     /**
      * @param args the command line arguments

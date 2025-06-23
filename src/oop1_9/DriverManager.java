@@ -4,7 +4,7 @@
  */
 package oop1_9;
 
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
 
 /**
  *
