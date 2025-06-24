@@ -7,9 +7,11 @@ package oop1_9;
 import DBConnection.DBConnect;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -30,6 +32,8 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class TransactionFrama extends javax.swing.JFrame {
 
+    private PreparedStatement pst;
+    
     DefaultTableModel tb = new DefaultTableModel();
     int totalHarga = 0;
     
@@ -39,6 +43,7 @@ public class TransactionFrama extends javax.swing.JFrame {
     public TransactionFrama() {
         initComponents();
         
+        tb.addColumn("Product ID");
         tb.addColumn("Barcode");
         tb.addColumn("SKU");
         tb.addColumn("Nama");
@@ -60,11 +65,11 @@ public class TransactionFrama extends javax.swing.JFrame {
             
             for (int i = 0; i < tb.getRowCount(); i++) {
                 reportModel.addRow(new Object[]{
-                    tb.getValueAt(i, 0), // barcode
-                    tb.getValueAt(i, 1), // sku
-                    tb.getValueAt(i, 2),  // name
-                    tb.getValueAt(i, 3),  // harga_beli
-                    tb.getValueAt(i, 4)  // harga_jual
+                    tb.getValueAt(i, 1), // barcode
+                    tb.getValueAt(i, 2), // sku
+                    tb.getValueAt(i, 3), // name
+                    tb.getValueAt(i, 4), // harga_beli
+                    tb.getValueAt(i, 5)  // harga_jual
                 });
             }
             
@@ -77,6 +82,33 @@ public class TransactionFrama extends javax.swing.JFrame {
             JasperPrint jp = JasperFillManager.fillReport(jr, params, datas);
             
             JasperViewer.viewReport(jp, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void checkout() {
+        LocalDate currentDate = LocalDate.now();
+        int result = 0;
+        
+        try {
+            DBConnect db = new DBConnect();
+            Connection c = db.connect();
+            
+            String sql = "INSERT INTO sales (product_id, qty, sales_date) VALUES (?, ?, ?)";
+            
+            this.pst = c.prepareStatement(sql);
+            
+            for (int i = 0; i < tb.getRowCount(); i++) {
+                pst.setInt(1, Integer.parseInt((String) tb.getValueAt(i, 0)));
+                pst.setInt(2, 10);
+                pst.setDate(3, java.sql.Date.valueOf(currentDate));
+                result = pst.executeUpdate();
+            }
+            
+            if (result > 0) {
+                JOptionPane.showMessageDialog(null, "Berhasil Checkout!");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -99,6 +131,7 @@ public class TransactionFrama extends javax.swing.JFrame {
         lblTotal = new javax.swing.JLabel();
         navigateToPOS = new javax.swing.JButton();
         initReportButton = new javax.swing.JButton();
+        checkoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,6 +174,13 @@ public class TransactionFrama extends javax.swing.JFrame {
             }
         });
 
+        checkoutButton.setText("Checkout");
+        checkoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,10 +188,7 @@ public class TransactionFrama extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(navigateToPOS)
-                        .addGap(348, 348, 348)
-                        .addComponent(lblTotal))
+                    .addComponent(navigateToPOS)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel1)
@@ -163,23 +200,30 @@ public class TransactionFrama extends javax.swing.JFrame {
                                 .addGap(70, 70, 70)
                                 .addComponent(btnAdd))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkoutButton)
+                    .addComponent(lblTotal))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtSku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(lblTotal)
-                    .addComponent(navigateToPOS)
-                    .addComponent(initReportButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(checkoutButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtSku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(lblTotal)
+                            .addComponent(navigateToPOS)
+                            .addComponent(initReportButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -201,6 +245,7 @@ public class TransactionFrama extends javax.swing.JFrame {
                 int harga_jual = rs.getInt("harga_jual");
                 int harga_beli = rs.getInt("harga_beli");
                 tb.addRow(new Object[]{
+                    rs.getString("products_id"),
                     rs.getString("barcode"),
                     rs.getString("sku"),
                     rs.getString("name"),
@@ -231,6 +276,11 @@ public class TransactionFrama extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.initReport();
     }//GEN-LAST:event_initReportButtonActionPerformed
+
+    private void checkoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutButtonActionPerformed
+        // TODO add your handling code here:
+        this.checkout();
+    }//GEN-LAST:event_checkoutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -269,6 +319,7 @@ public class TransactionFrama extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton checkoutButton;
     private javax.swing.JButton initReportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

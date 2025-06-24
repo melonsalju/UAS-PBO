@@ -41,6 +41,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="navigateToCalculator" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="navigateToLaporan" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -62,7 +63,9 @@
                   <Component id="navigateToAddProduct" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="navigateToCalculator" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="navigateToLaporan" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,6 +127,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="navigateToCalculatorActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="navigateToLaporan">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Laporan"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="navigateToLaporanActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

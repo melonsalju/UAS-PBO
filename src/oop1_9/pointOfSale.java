@@ -81,6 +81,7 @@ public class pointOfSale extends javax.swing.JFrame {
         navigateToKasir = new javax.swing.JButton();
         navigateToAddProduct = new javax.swing.JButton();
         navigateToCalculator = new javax.swing.JButton();
+        navigateToLaporan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +132,13 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        navigateToLaporan.setText("Laporan");
+        navigateToLaporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navigateToLaporanActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,7 +157,8 @@ public class pointOfSale extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(navigateToAddProduct)
                         .addGap(18, 18, 18)
-                        .addComponent(navigateToCalculator)))
+                        .addComponent(navigateToCalculator))
+                    .addComponent(navigateToLaporan))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -166,7 +175,9 @@ public class pointOfSale extends javax.swing.JFrame {
                     .addComponent(navigateToKasir)
                     .addComponent(navigateToAddProduct)
                     .addComponent(navigateToCalculator))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(navigateToLaporan)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,6 +221,15 @@ public class pointOfSale extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_navigateToCalculatorActionPerformed
 
+    private void navigateToLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToLaporanActionPerformed
+        // TODO add your handling code here:
+        Laporan laporan = new Laporan();
+        laporan.setVisible(true);
+        laporan.pack();
+        laporan.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_navigateToLaporanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,6 +272,7 @@ public class pointOfSale extends javax.swing.JFrame {
     private javax.swing.JButton navigateToAddProduct;
     private javax.swing.JButton navigateToCalculator;
     private javax.swing.JButton navigateToKasir;
+    private javax.swing.JButton navigateToLaporan;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
