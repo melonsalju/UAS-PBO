@@ -5,6 +5,7 @@
 package oop1_9;
 
 import DBConnection.DBConnect;
+import Kasir.CetakStrukPembelian;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,19 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRTableModelDataSource;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -53,35 +43,10 @@ public class TransactionFrama extends javax.swing.JFrame {
     }
     
     private void initReport() {
-        DBConnect db = new DBConnect();
-        
-        DefaultTableModel reportModel = new DefaultTableModel();
-        reportModel.setColumnIdentifiers(new Object[]{
-            "barcode", "sku", "name", "harga_jual", "harga_beli"
-        });
-
         try {
-            JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\StrukKasir.jrxml");
+            CetakStrukPembelian csp = new CetakStrukPembelian(tb);
             
-            for (int i = 0; i < tb.getRowCount(); i++) {
-                reportModel.addRow(new Object[]{
-                    tb.getValueAt(i, 1), // barcode
-                    tb.getValueAt(i, 2), // sku
-                    tb.getValueAt(i, 3), // name
-                    tb.getValueAt(i, 4), // harga_beli
-                    tb.getValueAt(i, 5)  // harga_jual
-                });
-            }
-            
-            JRTableModelDataSource datas = new JRTableModelDataSource(reportModel);
-            
-            Map<String, Object> params = new HashMap<>();
-            
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            
-            JasperPrint jp = JasperFillManager.fillReport(jr, params, datas);
-            
-            JasperViewer.viewReport(jp, false);
+            csp.run();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -90,6 +55,7 @@ public class TransactionFrama extends javax.swing.JFrame {
     private void checkout() {
         LocalDate currentDate = LocalDate.now();
         int result = 0;
+        CetakStrukPembelian csp = new CetakStrukPembelian(tb);
         
         try {
             DBConnect db = new DBConnect();
@@ -109,6 +75,10 @@ public class TransactionFrama extends javax.swing.JFrame {
             if (result > 0) {
                 JOptionPane.showMessageDialog(null, "Berhasil Checkout!");
             }
+            
+            lblTotal.setText("<html>Total Belanja<br><b>" + 0 + "</b></html>");
+            
+            csp.run();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -200,7 +170,7 @@ public class TransactionFrama extends javax.swing.JFrame {
                                 .addGap(70, 70, 70)
                                 .addComponent(btnAdd))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(49, 49, 49)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkoutButton)
                     .addComponent(lblTotal))
@@ -210,20 +180,19 @@ public class TransactionFrama extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(checkoutButton)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtSku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd)
-                            .addComponent(lblTotal)
-                            .addComponent(navigateToPOS)
-                            .addComponent(initReportButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtSku, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdd)
+                    .addComponent(lblTotal)
+                    .addComponent(navigateToPOS)
+                    .addComponent(initReportButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkoutButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -280,6 +249,7 @@ public class TransactionFrama extends javax.swing.JFrame {
     private void checkoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutButtonActionPerformed
         // TODO add your handling code here:
         this.checkout();
+        tb.setRowCount(0);
     }//GEN-LAST:event_checkoutButtonActionPerformed
 
     /**

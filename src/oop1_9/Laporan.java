@@ -33,7 +33,7 @@ public class Laporan extends javax.swing.JFrame {
         try {
             DBConnect db = new DBConnect();
             
-            JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\StrukKasir.jrxml");
+            JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\LaporanPenjualan.jrxml");
             
             String sql = "SELECT * FROM sales";
             
