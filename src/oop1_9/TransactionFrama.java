@@ -55,7 +55,6 @@ public class TransactionFrama extends javax.swing.JFrame {
     private void checkout() {
         LocalDate currentDate = LocalDate.now();
         int result = 0;
-        CetakStrukPembelian csp = new CetakStrukPembelian(tb);
         
         try {
             DBConnect db = new DBConnect();
@@ -78,7 +77,7 @@ public class TransactionFrama extends javax.swing.JFrame {
             
             lblTotal.setText("<html>Total Belanja<br><b>" + 0 + "</b></html>");
             
-            csp.run();
+            this.initReport();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

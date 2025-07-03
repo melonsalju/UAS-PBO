@@ -26,6 +26,7 @@ public class Laporan extends javax.swing.JFrame {
      */
     public Laporan() {
         initComponents();
+        this.filterTanggalInput.setVisible(false);
     }
     
     private void cetakLaporan() {
@@ -35,7 +36,9 @@ public class Laporan extends javax.swing.JFrame {
             
             JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\LaporanPenjualan.jrxml");
             
-            String sql = "SELECT * FROM sales";
+            String sql = "SELECT * FROM sales " +
+                    "LEFT JOIN products " +
+                    "ON sales.product_id = products.product_id;";
             
             JRDesignQuery q = new JRDesignQuery();
             
@@ -64,6 +67,7 @@ public class Laporan extends javax.swing.JFrame {
         filterTanggalInput = new com.toedter.calendar.JCalendar();
         cetakLaporanButton = new javax.swing.JButton();
         navigateToPOS = new javax.swing.JButton();
+        toggleFilterTanggalButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +88,13 @@ public class Laporan extends javax.swing.JFrame {
             }
         });
 
+        toggleFilterTanggalButton.setText("Filter Tanggal");
+        toggleFilterTanggalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleFilterTanggalButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,10 +109,13 @@ public class Laporan extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cetakLaporanButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                                 .addComponent(navigateToPOS))
-                            .addComponent(filterTanggalInput, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(toggleFilterTanggalButton)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addComponent(filterTanggalInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,12 +123,14 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(toggleFilterTanggalButton)
+                .addGap(18, 18, 18)
                 .addComponent(filterTanggalInput, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cetakLaporanButton)
                     .addComponent(navigateToPOS))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,9 +146,19 @@ public class Laporan extends javax.swing.JFrame {
     }//GEN-LAST:event_navigateToPOSActionPerformed
 
     private void cetakLaporanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cetakLaporanButtonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         this.cetakLaporan();
     }//GEN-LAST:event_cetakLaporanButtonActionPerformed
+
+    private void toggleFilterTanggalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleFilterTanggalButtonActionPerformed
+        // TODO add your handling code here:
+        String status = this.toggleFilterTanggalButton.getText();
+        String text = status == "Tutup" ? "Filter Tanggal" : "Tutup";
+        
+        this.filterTanggalInput.setVisible(!"Tutup".equals(status));
+
+        this.toggleFilterTanggalButton.setText(text);
+    }//GEN-LAST:event_toggleFilterTanggalButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,5 +200,6 @@ public class Laporan extends javax.swing.JFrame {
     private com.toedter.calendar.JCalendar filterTanggalInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton navigateToPOS;
+    private javax.swing.JButton toggleFilterTanggalButton;
     // End of variables declaration//GEN-END:variables
 }
