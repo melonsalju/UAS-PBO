@@ -4,8 +4,11 @@
  */
 package oop1_9;
 
+import DBConnection.DBConnect;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +20,10 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class pointOfSale extends javax.swing.JFrame {
-
+    private PreparedStatement pst;
+    private final Object[] columns = {"Barcode", "Kode SKU", "Nama Item", "Harga"};
+    DefaultTableModel model = new DefaultTableModel(null, this.columns);
+    
     /**
      * Creates new form pointOfSale
      */
@@ -28,11 +34,6 @@ public class pointOfSale extends javax.swing.JFrame {
     }
     
     private void loadDataToTable(String searchQuery) {
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Barcode");
-        model.addColumn("Kode SKU");
-        model.addColumn("Nama Item");
-        model.addColumn("Harga");
         String sql = "SELECT * FROM products";
         if (searchQuery != null && !searchQuery.isEmpty()) {
             sql += " WHERE barcode LIKE '%" + searchQuery + "%' OR " +
@@ -41,6 +42,9 @@ public class pointOfSale extends javax.swing.JFrame {
         }
 
         try (Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/pos", "root", "")) {
+            this.jTable1.setModel(model);
+            model.getDataVector().removeAllElements();
+            model.fireTableDataChanged();
             Statement s = c.createStatement();
             ResultSet rs = s.executeQuery(sql);
 
@@ -63,8 +67,6 @@ public class pointOfSale extends javax.swing.JFrame {
         jTable1.setModel(model);
     }
 
-
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,6 +84,8 @@ public class pointOfSale extends javax.swing.JFrame {
         navigateToAddProduct = new javax.swing.JButton();
         navigateToCalculator = new javax.swing.JButton();
         navigateToLaporan = new javax.swing.JButton();
+        openEditForm = new javax.swing.JButton();
+        deleteProductButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,12 +143,26 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        openEditForm.setText("Edit");
+        openEditForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openEditFormActionPerformed(evt);
+            }
+        });
+
+        deleteProductButton.setText("Hapus");
+        deleteProductButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProductButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
@@ -153,13 +171,19 @@ public class pointOfSale extends javax.swing.JFrame {
                             .addComponent(btnRefresh))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(navigateToKasir)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(navigateToLaporan)
+                                .addGap(18, 18, 18)
+                                .addComponent(navigateToAddProduct))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(navigateToKasir)
+                                .addGap(18, 18, 18)
+                                .addComponent(openEditForm)))
                         .addGap(18, 18, 18)
-                        .addComponent(navigateToAddProduct)
-                        .addGap(18, 18, 18)
-                        .addComponent(navigateToCalculator))
-                    .addComponent(navigateToLaporan))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteProductButton)
+                            .addComponent(navigateToCalculator)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,11 +197,14 @@ public class pointOfSale extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(navigateToKasir)
+                    .addComponent(openEditForm)
+                    .addComponent(deleteProductButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(navigateToLaporan)
                     .addComponent(navigateToAddProduct)
                     .addComponent(navigateToCalculator))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(navigateToLaporan)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,6 +257,51 @@ public class pointOfSale extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_navigateToLaporanActionPerformed
 
+    private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
+        // TODO add your handling code here:
+        int[] selectedRows = this.jTable1.getSelectedRows();
+        
+        if (selectedRows.length < 1) {
+            JOptionPane.showMessageDialog(null, "Harap pilih data yang ingin dihapus pada tabel!");
+            return;
+        }
+        
+        try {
+            DBConnect db = new DBConnect();
+            Connection conn = db.connect();
+            
+            if ((JOptionPane.showConfirmDialog(null, "Apakah ada yakin ingin menghapus?", "konfirmasi", JOptionPane.YES_NO_OPTION)) == 0) {
+                this.pst = conn.prepareStatement("DELETE FROM products WHERE sku=?");
+                
+                for (int row : selectedRows) {
+                    String sku = model.getValueAt(row, 1).toString();
+                    this.pst.setString(1, sku);
+                    this.pst.addBatch();
+                }
+                
+                int[] rowsDeleted = this.pst.executeBatch();
+                
+                this.loadDataToTable(null);
+                
+                if (rowsDeleted.length > 0) {
+                    JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
+                }
+            }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_deleteProductButtonActionPerformed
+
+    private void openEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openEditFormActionPerformed
+        // TODO add your handling code here:
+        Product form = new Product();
+        
+        form.setVisible(true);
+        form.pack();
+        form.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_openEditFormActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -267,12 +339,14 @@ public class pointOfSale extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton deleteProductButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton navigateToAddProduct;
     private javax.swing.JButton navigateToCalculator;
     private javax.swing.JButton navigateToKasir;
     private javax.swing.JButton navigateToLaporan;
+    private javax.swing.JButton openEditForm;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
