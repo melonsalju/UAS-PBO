@@ -5,6 +5,7 @@
 package oop1_9;
 
 import DBConnection.DBConnect;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -29,28 +30,61 @@ public class Laporan extends javax.swing.JFrame {
         this.filterTanggalInput.setVisible(false);
     }
     
-    private void cetakLaporan() {
+    private void initReport() throws Exception {
+        DBConnect db = new DBConnect();
         
-        try {
-            DBConnect db = new DBConnect();
-            
-            JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\LaporanPenjualan.jrxml");
-            
-            String sql = "SELECT * FROM sales " +
-                    "LEFT JOIN products " +
-                    "ON sales.product_id = products.product_id;";
-            
-            JRDesignQuery q = new JRDesignQuery();
-            
-            q.setText(sql);
-            
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, db.connect());
-            
-            JasperViewer.viewReport(jp, false);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        JasperDesign jd = JRXmlLoader.load("D:\\Efje\\Kampus\\Semester 4\\OOP 2\\UAS\\src\\iReport\\LaporanPenjualan.jrxml");
+        
+        JasperReport jr = JasperCompileManager.compileReport(jd);
+        
+        JasperPrint jp = JasperFillManager.fillReport(jr, null, db.connect());
+        
+        JasperViewer.viewReport(jp, false);
+    }
+    
+    private void initReport(String filter) throws Exception {
+        DBConnect db = new DBConnect();
+        
+        JasperDesign jd = JRXmlLoader.load("D:\\Efje\\Kampus\\Semester 4\\OOP 2\\UAS\\src\\iReport\\LaporanPenjualan.jrxml");
+        
+        String sql = "SELECT * FROM sales " +
+                "LEFT JOIN products " +
+                "ON sales.product_id = products.product_id " +
+                "WHERE sales_date = '" + filter + "';";
+        
+        JRDesignQuery q = new JRDesignQuery();
+        
+        q.setText(sql);
+        jd.setQuery(q);
+        
+        JasperReport jr = JasperCompileManager.compileReport(jd);
+        
+        JasperPrint jp = JasperFillManager.fillReport(jr, null, db.connect());
+        
+        JasperViewer.viewReport(jp, false);
+    }
+    
+    private void cetakLaporan() {
+        String format = "YYYY-MM-dd";
+        SimpleDateFormat formatter = new SimpleDateFormat(format);
+        
+        String filter = formatter.format(this.filterTanggalInput.getDate());
+        
+        System.out.println(filter);
+        System.out.println(filter != null);
+        
+        if (filter != null) {
+            try {
+                this.initReport(filter);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        } else {
+            try {
+                this.initReport();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }
 
