@@ -55,6 +55,7 @@ public class Laporan extends javax.swing.JFrame {
         JRDesignQuery q = new JRDesignQuery();
         
         q.setText(sql);
+        
         jd.setQuery(q);
         
         JasperReport jr = JasperCompileManager.compileReport(jd);
