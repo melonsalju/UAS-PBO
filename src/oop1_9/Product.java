@@ -4,8 +4,10 @@
  */
 package oop1_9;
 
+import DBConnection.DBConnect;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,11 +21,78 @@ import javax.swing.JOptionPane;
  */
 public class Product extends javax.swing.JFrame {
 
+    private PreparedStatement pst;
+    private ResultSet rs;
+    private Statement st;
+    
+    private DBConnect db = new DBConnect();
+    private Connection c = this.db.connect();
+    
+    private String sku;
     /**
      * Creates new form Product
      */
-    public Product() {
+    public Product(String sku) {
         initComponents();
+        
+        this.sku = sku;
+        
+        if (!sku.equals("")) {
+            this.getProduct(this.sku);
+        }
+    }
+    
+    private void getProduct(String sku) {
+        try {
+
+            
+            String q = "SELECT * FROM products WHERE sku='" + sku + "'";
+            
+            this.st = this.c.createStatement();
+            this.rs = this.st.executeQuery(q);
+            
+            while (this.rs.next()) {
+                this.txtBarcode.setText(this.rs.getString(2));
+                this.txtSku.setText(this.rs.getString(3));
+                this.txtName.setText(this.rs.getString(4));
+                this.txtBeli.setText(this.rs.getString(5));
+                this.txtJual.setText(this.rs.getString(6));
+                this.txtStok.setText(this.rs.getString(7));
+            }
+            
+            this.rs.close();
+            this.st.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    private void updateProduct() {
+        try {
+            String q = "UPDATE products SET "
+                    + "barcode = ?, sku = ?, name = ?, "
+                    + "harga_beli = ?, harga_jual = ?, stok = ? "
+                    + "WHERE sku='" + this.sku + "'";
+            
+            this.pst = this.c.prepareStatement(q);
+            
+            this.pst.setString(1, this.txtBarcode.getText());
+            this.pst.setString(2, this.txtSku.getText());
+            this.pst.setString(3, this.txtName.getText());
+            this.pst.setFloat(4, Float.parseFloat(this.txtBeli.getText()));
+            this.pst.setFloat(5, Float.parseFloat(this.txtJual.getText()));
+            this.pst.setInt(6, Integer.parseInt(this.txtStok.getText()));
+            
+            int rs = this.pst.executeUpdate();
+            
+            if (rs > 0) {
+                this.getProduct(this.sku);
+                JOptionPane.showMessageDialog(null, "Produk Berhasil di Update!");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -48,6 +117,8 @@ public class Product extends javax.swing.JFrame {
         txtBeli = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtJual = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtStok = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Hapus"); // NOI18N
@@ -76,6 +147,11 @@ public class Product extends javax.swing.JFrame {
                 jButton2MouseClicked(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Hapus");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,6 +173,14 @@ public class Product extends javax.swing.JFrame {
         txtJual.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtJualKeyTyped(evt);
+            }
+        });
+
+        jLabel6.setText("Stok");
+
+        txtStok.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtStokKeyTyped(evt);
             }
         });
 
@@ -131,7 +215,9 @@ public class Product extends javax.swing.JFrame {
                         .addGap(63, 63, 63)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtBeli, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtJual, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtJual, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -157,6 +243,10 @@ public class Product extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtJual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(navigateToPOS)
@@ -225,6 +315,15 @@ public class Product extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_navigateToPOSActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.updateProduct();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtStokKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStokKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStokKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -255,7 +354,7 @@ public class Product extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Product().setVisible(true);
+                new Product("").setVisible(true);
             }
         });
     }
@@ -268,11 +367,13 @@ public class Product extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton navigateToPOS;
     private javax.swing.JTextField txtBarcode;
     private javax.swing.JTextField txtBeli;
     private javax.swing.JTextField txtJual;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSku;
+    private javax.swing.JTextField txtStok;
     // End of variables declaration//GEN-END:variables
 }

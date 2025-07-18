@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class pointOfSale extends javax.swing.JFrame {
     private PreparedStatement pst;
-    private final Object[] columns = {"Barcode", "Kode SKU", "Nama Item", "Harga"};
+    private final Object[] columns = {"Barcode", "Kode SKU", "Nama Item", "Harga", "Stok"};
     DefaultTableModel model = new DefaultTableModel(null, this.columns);
     
     /**
@@ -53,7 +53,8 @@ public class pointOfSale extends javax.swing.JFrame {
                     rs.getString("barcode"),
                     rs.getString("sku"),
                     rs.getString("name"),
-                    rs.getInt("harga_jual")
+                    rs.getInt("harga_jual"),
+                    rs.getInt("stok")
                 });
             }
 
@@ -232,7 +233,7 @@ public class pointOfSale extends javax.swing.JFrame {
 
     private void navigateToAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToAddProductActionPerformed
         // TODO add your handling code here:
-        Product ap = new Product();
+        Product ap = new Product("");
         ap.setVisible(true);
         ap.pack();
         ap.setLocationRelativeTo(null);
@@ -294,7 +295,15 @@ public class pointOfSale extends javax.swing.JFrame {
 
     private void openEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openEditFormActionPerformed
         // TODO add your handling code here:
-        Product form = new Product();
+        int[] selectedRows = this.jTable1.getSelectedRows();
+        
+        if (selectedRows.length > 1) {
+            JOptionPane.showMessageDialog(null, "Kamu hanya bisa edit 1 data!");
+            return;
+        }
+        String sku = model.getValueAt(selectedRows[0], 1).toString();
+        
+        Product form = new Product(sku);
         
         form.setVisible(true);
         form.pack();

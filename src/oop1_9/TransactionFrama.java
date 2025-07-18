@@ -18,6 +18,9 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
+ * 
+ * 
+ * 
  * @author USER
  */
 public class TransactionFrama extends javax.swing.JFrame {

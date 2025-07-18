@@ -5,6 +5,7 @@
 package oop1_9;
 
 import DBConnection.DBConnect;
+import com.toedter.calendar.JCalendar;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -69,12 +70,13 @@ public class Laporan extends javax.swing.JFrame {
         String format = "YYYY-MM-dd";
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         
-        String filter = formatter.format(this.filterTanggalInput.getDate());
+        boolean filterInput = this.filterTanggalInput.isVisible();
         
-        System.out.println(filter);
-        System.out.println(filter != null);
+//        System.out.println(filterInput);
         
-        if (filter != null) {
+        if (filterInput) {
+            String filter = formatter.format(this.filterTanggalInput.getDate());
+            
             try {
                 this.initReport(filter);
             } catch (Exception e) {
