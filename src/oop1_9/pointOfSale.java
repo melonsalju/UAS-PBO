@@ -90,12 +90,17 @@ public class pointOfSale extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtSearch.setBackground(new java.awt.Color(0, 102, 102));
+        txtSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchActionPerformed(evt);
             }
         });
 
+        jTable1.setBackground(new java.awt.Color(0, 102, 102));
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -109,6 +114,9 @@ public class pointOfSale extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnRefresh.setBackground(new java.awt.Color(0, 102, 102));
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +124,9 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        navigateToKasir.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToKasir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToKasir.setForeground(new java.awt.Color(255, 255, 255));
         navigateToKasir.setText("Kasir");
         navigateToKasir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +134,9 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        navigateToAddProduct.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToAddProduct.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToAddProduct.setForeground(new java.awt.Color(255, 255, 255));
         navigateToAddProduct.setText("Tambah Produk");
         navigateToAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +144,9 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        navigateToCalculator.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToCalculator.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToCalculator.setForeground(new java.awt.Color(255, 255, 255));
         navigateToCalculator.setText("Kalkulator");
         navigateToCalculator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +154,9 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        navigateToLaporan.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToLaporan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToLaporan.setForeground(new java.awt.Color(255, 255, 255));
         navigateToLaporan.setText("Laporan");
         navigateToLaporan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +164,9 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        openEditForm.setBackground(new java.awt.Color(0, 102, 102));
+        openEditForm.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        openEditForm.setForeground(new java.awt.Color(255, 255, 255));
         openEditForm.setText("Edit");
         openEditForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +174,9 @@ public class pointOfSale extends javax.swing.JFrame {
             }
         });
 
+        deleteProductButton.setBackground(new java.awt.Color(0, 102, 102));
+        deleteProductButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        deleteProductButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteProductButton.setText("Hapus");
         deleteProductButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,20 +237,20 @@ public class pointOfSale extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+        String searchQuery = txtSearch.getText().trim();
+        loadDataToTable(searchQuery);
+    }//GEN-LAST:event_txtSearchActionPerformed
+
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         txtSearch.setText("");
         String searchQuery = null;
         loadDataToTable(searchQuery);
     }//GEN-LAST:event_btnRefreshActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        String searchQuery = txtSearch.getText().trim();
-        loadDataToTable(searchQuery);
-    }//GEN-LAST:event_txtSearchActionPerformed
-
     private void navigateToKasirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToKasirActionPerformed
         // TODO add your handling code here:
-        TransactionFrama kasir = new TransactionFrama();
+        TransactionFrame kasir = new TransactionFrame();
         kasir.setVisible(true);
         kasir.pack();
         kasir.setLocationRelativeTo(null);
@@ -258,32 +284,50 @@ public class pointOfSale extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_navigateToLaporanActionPerformed
 
+    private void openEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openEditFormActionPerformed
+        // TODO add your handling code here:
+        int[] selectedRows = this.jTable1.getSelectedRows();
+
+        if (selectedRows.length > 1) {
+            JOptionPane.showMessageDialog(null, "Kamu hanya bisa edit 1 data!");
+            return;
+        }
+        String sku = model.getValueAt(selectedRows[0], 1).toString();
+
+        Product form = new Product(sku);
+
+        form.setVisible(true);
+        form.pack();
+        form.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_openEditFormActionPerformed
+
     private void deleteProductButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductButtonActionPerformed
         // TODO add your handling code here:
         int[] selectedRows = this.jTable1.getSelectedRows();
-        
+
         if (selectedRows.length < 1) {
             JOptionPane.showMessageDialog(null, "Harap pilih data yang ingin dihapus pada tabel!");
             return;
         }
-        
+
         try {
             DBConnect db = new DBConnect();
             Connection conn = db.connect();
-            
+
             if ((JOptionPane.showConfirmDialog(null, "Apakah ada yakin ingin menghapus?", "konfirmasi", JOptionPane.YES_NO_OPTION)) == 0) {
                 this.pst = conn.prepareStatement("DELETE FROM products WHERE sku=?");
-                
+
                 for (int row : selectedRows) {
                     String sku = model.getValueAt(row, 1).toString();
                     this.pst.setString(1, sku);
                     this.pst.addBatch();
                 }
-                
+
                 int[] rowsDeleted = this.pst.executeBatch();
-                
+
                 this.loadDataToTable(null);
-                
+
                 if (rowsDeleted.length > 0) {
                     JOptionPane.showMessageDialog(null, "Data berhasil dihapus!");
                 }
@@ -292,24 +336,6 @@ public class pointOfSale extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_deleteProductButtonActionPerformed
-
-    private void openEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openEditFormActionPerformed
-        // TODO add your handling code here:
-        int[] selectedRows = this.jTable1.getSelectedRows();
-        
-        if (selectedRows.length > 1) {
-            JOptionPane.showMessageDialog(null, "Kamu hanya bisa edit 1 data!");
-            return;
-        }
-        String sku = model.getValueAt(selectedRows[0], 1).toString();
-        
-        Product form = new Product(sku);
-        
-        form.setVisible(true);
-        form.pack();
-        form.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_openEditFormActionPerformed
 
     /**
      * @param args the command line arguments

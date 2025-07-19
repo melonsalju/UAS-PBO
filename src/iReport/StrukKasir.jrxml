@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="360" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fac15639-3d50-4df7-be0d-39ba75de53c8">
-	<property name="ireport.zoom" value="1.0000000000000016"/>
+	<property name="ireport.zoom" value="1.3310000000000035"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="26"/>
 	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
 	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
@@ -13,6 +13,8 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
+	<parameter name="qty" class="java.lang.String"/>
+	<parameter name="grandtotal_struk" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT * FROM products;]]>
 	</queryString>
@@ -20,6 +22,9 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="harga_jual" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+        <field name="qty" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<variable name="grandtotal_struk" class="java.math.BigDecimal" calculation="Sum">
@@ -31,16 +36,16 @@
 	<title>
 		<band height="132" splitType="Stretch">
 			<frame>
-				<reportElement uuid="9f30bd36-a980-437b-8438-b728006a10bf" mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="0" y="0" width="451" height="95" backcolor="#000000" uuid="9f30bd36-a980-437b-8438-b728006a10bf"/>
 				<staticText>
-					<reportElement uuid="cf3933ba-4483-48ed-862b-ce68b9d6092b" style="Title" x="0" y="0" width="370" height="66"/>
+					<reportElement style="Title" x="0" y="0" width="370" height="66" uuid="cf3933ba-4483-48ed-862b-ce68b9d6092b"/>
 					<textElement>
 						<font isBold="false"/>
 					</textElement>
 					<text><![CDATA[POS Kasir]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="1d10fe1c-6b7a-4f5c-a316-0624afd6de84" style="SubTitle" x="157" y="66" width="249" height="29"/>
+					<reportElement style="SubTitle" x="157" y="66" width="249" height="29" uuid="1d10fe1c-6b7a-4f5c-a316-0624afd6de84"/>
 					<textElement>
 						<font size="22" isBold="false"/>
 					</textElement>
@@ -48,9 +53,9 @@
 				</staticText>
 			</frame>
 			<frame>
-				<reportElement uuid="8484cc5e-d3ee-4cdb-84f0-9163fee66cb2" mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000"/>
+				<reportElement mode="Opaque" x="0" y="100" width="451" height="32" forecolor="#000000" backcolor="#CC0000" uuid="8484cc5e-d3ee-4cdb-84f0-9163fee66cb2"/>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="d0df01c2-0334-4c46-ba98-97f680f3d6fb" x="307" y="12" width="144" height="20" forecolor="#FFFFFF"/>
+					<reportElement x="307" y="12" width="144" height="20" forecolor="#FFFFFF" uuid="d0df01c2-0334-4c46-ba98-97f680f3d6fb"/>
 					<textElement textAlignment="Right">
 						<font size="12"/>
 					</textElement>
@@ -58,7 +63,7 @@
 				</textField>
 			</frame>
 			<image>
-				<reportElement uuid="1c220c53-e2df-48b2-aab7-4c0bb642f0a3" x="453" y="0" width="102" height="132"/>
+				<reportElement x="453" y="0" width="102" height="132" uuid="1c220c53-e2df-48b2-aab7-4c0bb642f0a3"/>
 			</image>
 		</band>
 	</title>
@@ -68,38 +73,54 @@
 	<columnHeader>
 		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="2347bf9d-38ca-45b3-abdd-a64dc9ee1e4e" style="Column header" x="2" y="0" width="111" height="18" forecolor="#000000"/>
+				<reportElement style="Column header" x="2" y="0" width="111" height="18" forecolor="#000000" uuid="2347bf9d-38ca-45b3-abdd-a64dc9ee1e4e"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Nama Barang]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="925362b6-bbfc-4230-bf32-581c21c082e3" style="Column header" x="113" y="0" width="111" height="18" forecolor="#000000"/>
+				<reportElement style="Column header" x="113" y="0" width="111" height="18" forecolor="#000000" uuid="925362b6-bbfc-4230-bf32-581c21c082e3"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Harga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="224" y="0" width="100" height="18" forecolor="#000000" backcolor="#FFFFFF" uuid="68490ee4-0906-48ab-b44a-8186fbd080f9"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<frame>
-				<reportElement uuid="e3cc8770-2c90-4427-8947-3c7ecc165d5b" style="Row" mode="Opaque" x="0" y="0" width="555" height="18"/>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="e3cc8770-2c90-4427-8947-3c7ecc165d5b"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="b071bbcb-fc40-40c7-8a46-22d1a66d73ee" style="Detail" positionType="Float" x="0" y="0" width="111" height="18"/>
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="111" height="18" uuid="b071bbcb-fc40-40c7-8a46-22d1a66d73ee"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="50489125-8c28-4453-b761-2ea5e61eb93e" style="Detail" positionType="Float" x="111" y="0" width="111" height="18"/>
+					<reportElement style="Detail" positionType="Float" x="111" y="0" width="113" height="18" uuid="50489125-8c28-4453-b761-2ea5e61eb93e"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{harga_jual}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="224" y="1" width="100" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="6f06edda-fe59-4891-81f2-5a5f839c933d"/>
+					<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -107,40 +128,39 @@
 	<pageFooter>
 		<band height="51" splitType="Stretch">
 			<frame>
-				<reportElement uuid="5c19b782-2b3d-4a78-8e41-a521ef26a267" mode="Opaque" x="0" y="26" width="555" height="24" forecolor="#D0B48E" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="0" y="26" width="555" height="24" forecolor="#D0B48E" backcolor="#000000" uuid="5c19b782-2b3d-4a78-8e41-a521ef26a267"/>
 				<textField evaluationTime="Report">
-					<reportElement uuid="0b945d81-67b6-4e65-820a-ea558326ceec" style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF"/>
+					<reportElement style="Column header" x="513" y="0" width="40" height="20" forecolor="#FFFFFF" uuid="0b945d81-67b6-4e65-820a-ea558326ceec"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="4f010aef-22eb-4360-86e6-e897495451f0" style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF"/>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="4f010aef-22eb-4360-86e6-e897495451f0"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 				</textField>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement uuid="d4f36179-1c69-4e79-aa9b-bb92ec86f762" x="2" y="0" width="100" height="20" forecolor="#FFFFFF"/>
-					<textElement/>
+					<reportElement x="2" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="d4f36179-1c69-4e79-aa9b-bb92ec86f762"/>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
 			</frame>
 			<staticText>
-				<reportElement uuid="0169afe2-eaed-4f2a-bf06-03df886d6d3e" x="0" y="1" width="111" height="25"/>
+				<reportElement x="0" y="1" width="111" height="25" uuid="0169afe2-eaed-4f2a-bf06-03df886d6d3e"/>
 				<textElement markup="none">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Grandtotal :]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="e6956591-4f26-4630-a9c8-29ab243c3e40" x="111" y="1" width="236" height="25"/>
+				<reportElement x="111" y="1" width="236" height="25" uuid="e6956591-4f26-4630-a9c8-29ab243c3e40"/>
 				<textElement>
 					<font size="18"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Rp." + $V{grandtotal_struk}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Rp." + $P{grandtotal_struk}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

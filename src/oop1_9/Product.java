@@ -125,10 +125,22 @@ public class Product extends javax.swing.JFrame {
 
         jLabel1.setText("Barcode");
 
+        txtBarcode.setBackground(new java.awt.Color(0, 102, 102));
+        txtBarcode.setForeground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setText("Kode SKU");
+
+        txtSku.setBackground(new java.awt.Color(0, 102, 102));
+        txtSku.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setText("Nama Item");
 
+        txtName.setBackground(new java.awt.Color(0, 102, 102));
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
+
+        navigateToPOS.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToPOS.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToPOS.setForeground(new java.awt.Color(255, 255, 255));
         navigateToPOS.setText("Kembali");
         navigateToPOS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -141,6 +153,9 @@ public class Product extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(0, 102, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setLabel("Simpan");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -153,6 +168,9 @@ public class Product extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(0, 102, 102));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Hapus");
         jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -162,6 +180,8 @@ public class Product extends javax.swing.JFrame {
 
         jLabel4.setText("Harga Beli");
 
+        txtBeli.setBackground(new java.awt.Color(0, 102, 102));
+        txtBeli.setForeground(new java.awt.Color(255, 255, 255));
         txtBeli.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBeliKeyTyped(evt);
@@ -170,6 +190,8 @@ public class Product extends javax.swing.JFrame {
 
         jLabel5.setText("Harga Jual");
 
+        txtJual.setBackground(new java.awt.Color(0, 102, 102));
+        txtJual.setForeground(new java.awt.Color(255, 255, 255));
         txtJual.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtJualKeyTyped(evt);
@@ -178,6 +200,8 @@ public class Product extends javax.swing.JFrame {
 
         jLabel6.setText("Stok");
 
+        txtStok.setBackground(new java.awt.Color(0, 102, 102));
+        txtStok.setForeground(new java.awt.Color(255, 255, 255));
         txtStok.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtStokKeyTyped(evt);
@@ -258,17 +282,18 @@ public class Product extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        txtBarcode.setText("");
-        txtSku.setText("");
-        txtName.setText("");
-        txtBeli.setText("0");
-        txtJual.setText("0");
-    }//GEN-LAST:event_jButton3MouseClicked
-
     private void navigateToPOSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navigateToPOSMouseClicked
         this.hide();
     }//GEN-LAST:event_navigateToPOSMouseClicked
+
+    private void navigateToPOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToPOSActionPerformed
+        // TODO add your handling code here:
+        pointOfSale pos = new pointOfSale();
+        pos.setVisible(true);
+        pos.pack();
+        pos.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_navigateToPOSActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         String barcode = txtBarcode.getText();
@@ -276,12 +301,12 @@ public class Product extends javax.swing.JFrame {
         String name = txtName.getText();
         String harga_beli = txtBeli.getText();
         String harga_jual = txtJual.getText();
-        
+
         Connection c;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");    
+            Class.forName("com.mysql.cj.jdbc.Driver");
             c = DriverManager.getConnection("jdbc:mysql://localhost:3306/pos", "root", "");
-            
+
             Statement stm = c.createStatement();
             stm.executeUpdate("insert into products(barcode, sku, name, harga_beli, harga_jual) values ('" + barcode + "','" + sku + "','" + name + "','" + harga_beli + "','" + harga_jual + "')");
             jButton3MouseClicked(evt);
@@ -291,6 +316,19 @@ public class Product extends javax.swing.JFrame {
             System.out.println(e);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.updateProduct();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        txtBarcode.setText("");
+        txtSku.setText("");
+        txtName.setText("");
+        txtBeli.setText("0");
+        txtJual.setText("0");
+    }//GEN-LAST:event_jButton3MouseClicked
 
     private void txtBeliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBeliKeyTyped
         char enter = evt.getKeyChar();
@@ -305,20 +343,6 @@ public class Product extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtJualKeyTyped
-
-    private void navigateToPOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToPOSActionPerformed
-        // TODO add your handling code here:
-        pointOfSale pos = new pointOfSale();
-        pos.setVisible(true);
-        pos.pack();
-        pos.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_navigateToPOSActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.updateProduct();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtStokKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtStokKeyTyped
         // TODO add your handling code here:

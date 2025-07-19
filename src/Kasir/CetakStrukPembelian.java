@@ -5,7 +5,9 @@
 package Kasir;
 
 import DBConnection.DBConnect;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,23 +36,33 @@ public class CetakStrukPembelian {
         
         DefaultTableModel reportModel = new DefaultTableModel();
         reportModel.setColumnIdentifiers(new Object[]{
-            "name", "harga_jual"
+            "name", "harga_jual", "qty"
         });
         
         try {
+            Map<String, Object> params = new HashMap<>();
+            
             JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\StrukKasir.jrxml");
             
+            float grandtotal = 0;
+            
             for (int i = 0; i < tb.getRowCount(); i++) {
+                int currentQty = Integer.parseInt(tb.getValueAt(i, 6).toString());
+                int hargaJual = Integer.parseInt(this.tb.getValueAt(i, 4).toString());
+                
+                grandtotal += hargaJual * currentQty;
+                
                 reportModel.addRow(new Object[]{
                     this.tb.getValueAt(i, 3), // name
-                    this.tb.getValueAt(i, 4)  // harga_jual
+                    hargaJual,  // harga_jual
+                    currentQty // Qty
                 });
             }
             
+            params.put("grandtotal_struk", grandtotal);
+
             JRTableModelDataSource datas = new JRTableModelDataSource(reportModel);
-            
-            Map<String, Object> params = new HashMap<>();
-            
+                        
             JasperReport jr = JasperCompileManager.compileReport(jd);
             
             JasperPrint jp = JasperFillManager.fillReport(jr, params, datas);

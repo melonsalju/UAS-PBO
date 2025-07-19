@@ -34,7 +34,7 @@ public class Laporan extends javax.swing.JFrame {
     private void initReport() throws Exception {
         DBConnect db = new DBConnect();
         
-        JasperDesign jd = JRXmlLoader.load("D:\\Efje\\Kampus\\Semester 4\\OOP 2\\UAS\\src\\iReport\\LaporanPenjualan.jrxml");
+        JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\LaporanPenjualan.jrxml");
         
         JasperReport jr = JasperCompileManager.compileReport(jd);
         
@@ -46,7 +46,7 @@ public class Laporan extends javax.swing.JFrame {
     private void initReport(String filter) throws Exception {
         DBConnect db = new DBConnect();
         
-        JasperDesign jd = JRXmlLoader.load("D:\\Efje\\Kampus\\Semester 4\\OOP 2\\UAS\\src\\iReport\\LaporanPenjualan.jrxml");
+        JasperDesign jd = JRXmlLoader.load("D:\\Fernando Jocevine\\Kampus\\Semester 4\\OOP 2\\Codes\\UAS-OOP\\src\\iReport\\LaporanPenjualan.jrxml");
         
         String sql = "SELECT * FROM sales " +
                 "LEFT JOIN products " +

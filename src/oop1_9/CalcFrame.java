@@ -36,6 +36,9 @@ public class CalcFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        btn7.setBackground(new java.awt.Color(0, 102, 102));
+        btn7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn7.setForeground(new java.awt.Color(255, 255, 255));
         btn7.setText("7");
         btn7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -43,6 +46,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn8.setBackground(new java.awt.Color(0, 102, 102));
+        btn8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn8.setForeground(new java.awt.Color(255, 255, 255));
         btn8.setText("8");
         btn8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,6 +56,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn9.setBackground(new java.awt.Color(0, 102, 102));
+        btn9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn9.setForeground(new java.awt.Color(255, 255, 255));
         btn9.setText("9");
         btn9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +66,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btnbagi.setBackground(new java.awt.Color(0, 102, 102));
+        btnbagi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnbagi.setForeground(new java.awt.Color(255, 255, 255));
         btnbagi.setText(":");
         btnbagi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +76,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btnkali.setBackground(new java.awt.Color(0, 102, 102));
+        btnkali.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnkali.setForeground(new java.awt.Color(255, 255, 255));
         btnkali.setText("x");
         btnkali.setToolTipText("");
         btnkali.addActionListener(new java.awt.event.ActionListener() {
@@ -72,6 +87,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn6.setBackground(new java.awt.Color(0, 102, 102));
+        btn6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn6.setForeground(new java.awt.Color(255, 255, 255));
         btn6.setText("6");
         btn6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,6 +97,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn5.setBackground(new java.awt.Color(0, 102, 102));
+        btn5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn5.setForeground(new java.awt.Color(255, 255, 255));
         btn5.setText("5");
         btn5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,6 +107,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn4.setBackground(new java.awt.Color(0, 102, 102));
+        btn4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn4.setForeground(new java.awt.Color(255, 255, 255));
         btn4.setText("4");
         btn4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +117,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btnkurang.setBackground(new java.awt.Color(0, 102, 102));
+        btnkurang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnkurang.setForeground(new java.awt.Color(255, 255, 255));
         btnkurang.setText("-");
         btnkurang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +127,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn3.setBackground(new java.awt.Color(0, 102, 102));
+        btn3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn3.setForeground(new java.awt.Color(255, 255, 255));
         btn3.setText("3");
         btn3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +137,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn2.setBackground(new java.awt.Color(0, 102, 102));
+        btn2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn2.setForeground(new java.awt.Color(255, 255, 255));
         btn2.setText("2");
         btn2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +147,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn1.setBackground(new java.awt.Color(0, 102, 102));
+        btn1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn1.setForeground(new java.awt.Color(255, 255, 255));
         btn1.setText("1");
         btn1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +157,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btntambah.setBackground(new java.awt.Color(0, 102, 102));
+        btntambah.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btntambah.setForeground(new java.awt.Color(255, 255, 255));
         btntambah.setText("+");
         btntambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +167,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btnkoma.setBackground(new java.awt.Color(0, 102, 102));
+        btnkoma.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnkoma.setForeground(new java.awt.Color(255, 255, 255));
         btnkoma.setText(".");
         btnkoma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,6 +177,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btn0.setBackground(new java.awt.Color(0, 102, 102));
+        btn0.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn0.setForeground(new java.awt.Color(255, 255, 255));
         btn0.setText("0");
         btn0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +187,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        btnsama.setBackground(new java.awt.Color(0, 102, 102));
+        btnsama.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnsama.setForeground(new java.awt.Color(255, 255, 255));
         btnsama.setText("=");
         btnsama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +197,18 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        txtData.setBackground(new java.awt.Color(0, 102, 102));
+        txtData.setForeground(new java.awt.Color(255, 255, 255));
+        txtData.setCaretColor(new java.awt.Color(204, 255, 204));
+        txtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataActionPerformed(evt);
+            }
+        });
+
+        btnhapus.setBackground(new java.awt.Color(0, 102, 102));
+        btnhapus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnhapus.setForeground(new java.awt.Color(255, 255, 255));
         btnhapus.setText("C");
         btnhapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +216,9 @@ public class CalcFrame extends javax.swing.JFrame {
             }
         });
 
+        navigateToPOS.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToPOS.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToPOS.setForeground(new java.awt.Color(255, 255, 255));
         navigateToPOS.setText("Kembali");
         navigateToPOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +316,94 @@ public class CalcFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn7MouseClicked
+        AddText("7");
+    }//GEN-LAST:event_btn7MouseClicked
+
+    private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
+        AddText("8");
+    }//GEN-LAST:event_btn8ActionPerformed
+
+    private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
+        AddText("9");
+    }//GEN-LAST:event_btn9ActionPerformed
+
+    private void btnbagiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbagiActionPerformed
+        setOperator(":");
+    }//GEN-LAST:event_btnbagiActionPerformed
+
+    private void btnkaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkaliActionPerformed
+        setOperator("x");
+    }//GEN-LAST:event_btnkaliActionPerformed
+
+    private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
+        AddText("6");
+    }//GEN-LAST:event_btn6ActionPerformed
+
+    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
+        AddText("5");
+    }//GEN-LAST:event_btn5ActionPerformed
+
+    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
+        AddText("4");
+    }//GEN-LAST:event_btn4ActionPerformed
+
+    private void btnkurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkurangActionPerformed
+        setOperator("-");
+    }//GEN-LAST:event_btnkurangActionPerformed
+
+    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
+        AddText("3");
+    }//GEN-LAST:event_btn3ActionPerformed
+
+    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
+        AddText("2");
+    }//GEN-LAST:event_btn2ActionPerformed
+
+    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
+        AddText("1");
+    }//GEN-LAST:event_btn1ActionPerformed
+
+    private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
+        setOperator("+");
+    }//GEN-LAST:event_btntambahActionPerformed
+
+    private void btnkomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkomaActionPerformed
+        String currentText = txtData.getText();
+
+        if (!currentText.contains(".")) {
+            txtData.setText(currentText + ".");
+        }
+    }//GEN-LAST:event_btnkomaActionPerformed
+
+    private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
+        AddText("0");
+    }//GEN-LAST:event_btn0ActionPerformed
+
+    private void btnsamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsamaActionPerformed
+        calculateResult();
+    }//GEN-LAST:event_btnsamaActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+        txtData.setText("");
+        firstNumber = 0;
+        operator = "";
+        isOperatorPressed = false;
+    }//GEN-LAST:event_btnhapusActionPerformed
+
+    private void navigateToPOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToPOSActionPerformed
+        // TODO add your handling code here:
+        pointOfSale pos = new pointOfSale();
+        pos.setVisible(true);
+        pos.pack();
+        pos.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_navigateToPOSActionPerformed
     private String operator = "";
     private double firstNumber = 0;
     private boolean isOperatorPressed = false;
@@ -312,90 +463,6 @@ public class CalcFrame extends javax.swing.JFrame {
         isOperatorPressed = false;
     }
     
-    private void btn7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn7MouseClicked
-        AddText("7");
-    }//GEN-LAST:event_btn7MouseClicked
-
-    private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        AddText("8");
-    }//GEN-LAST:event_btn8ActionPerformed
-
-    private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        AddText("9");
-    }//GEN-LAST:event_btn9ActionPerformed
-
-    private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        AddText("4");
-    }//GEN-LAST:event_btn4ActionPerformed
-
-    private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        AddText("5");
-    }//GEN-LAST:event_btn5ActionPerformed
-
-    private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        AddText("6");
-    }//GEN-LAST:event_btn6ActionPerformed
-
-    private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        AddText("1");
-    }//GEN-LAST:event_btn1ActionPerformed
-
-    private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        AddText("2");
-    }//GEN-LAST:event_btn2ActionPerformed
-
-    private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        AddText("3");
-    }//GEN-LAST:event_btn3ActionPerformed
-
-    private void btn0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn0ActionPerformed
-        AddText("0");
-    }//GEN-LAST:event_btn0ActionPerformed
-
-    private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
-        setOperator("+");
-    }//GEN-LAST:event_btntambahActionPerformed
-
-    private void btnkurangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkurangActionPerformed
-        setOperator("-");
-    }//GEN-LAST:event_btnkurangActionPerformed
-
-    private void btnkaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkaliActionPerformed
-        setOperator("x");
-    }//GEN-LAST:event_btnkaliActionPerformed
-
-    private void btnbagiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbagiActionPerformed
-        setOperator(":");
-    }//GEN-LAST:event_btnbagiActionPerformed
-
-    private void btnsamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsamaActionPerformed
-        calculateResult();
-    }//GEN-LAST:event_btnsamaActionPerformed
-
-    private void btnkomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkomaActionPerformed
-        String currentText = txtData.getText();
-
-        if (!currentText.contains(".")) {
-            txtData.setText(currentText + ".");
-        }
-    }//GEN-LAST:event_btnkomaActionPerformed
-
-    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
-        txtData.setText("");
-        firstNumber = 0;
-        operator = "";
-        isOperatorPressed = false;
-    }//GEN-LAST:event_btnhapusActionPerformed
-
-    private void navigateToPOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_navigateToPOSActionPerformed
-        // TODO add your handling code here:
-        pointOfSale pos = new pointOfSale();
-        pos.setVisible(true);
-        pos.pack();
-        pos.setLocationRelativeTo(null);
-        this.dispose();
-    }//GEN-LAST:event_navigateToPOSActionPerformed
-
 
     /**
      * @param args the command line arguments

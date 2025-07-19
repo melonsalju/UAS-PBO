@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  * 
  * @author USER
  */
-public class TransactionFrama extends javax.swing.JFrame {
+public class TransactionFrame extends javax.swing.JFrame {
 
     private PreparedStatement pst;
     
@@ -31,9 +32,9 @@ public class TransactionFrama extends javax.swing.JFrame {
     int totalHarga = 0;
     
     /**
-     * Creates new form TransactionFrama
+     * Creates new form TransactionFrame
      */
-    public TransactionFrama() {
+    public TransactionFrame() {
         initComponents();
         
         tb.addColumn("Product ID");
@@ -42,6 +43,7 @@ public class TransactionFrama extends javax.swing.JFrame {
         tb.addColumn("Nama");
         tb.addColumn("Harga Jual");
         tb.addColumn("Harga Beli");
+        tb.addColumn("Qty");
         jTable1.setModel(tb);
     }
     
@@ -68,8 +70,10 @@ public class TransactionFrama extends javax.swing.JFrame {
             this.pst = c.prepareStatement(sql);
             
             for (int i = 0; i < tb.getRowCount(); i++) {
+                int currentQty = Integer.parseInt(tb.getValueAt(i, 6).toString());
+                
                 pst.setInt(1, Integer.parseInt((String) tb.getValueAt(i, 0)));
-                pst.setInt(2, 10);
+                pst.setInt(2, currentQty);
                 pst.setDate(3, java.sql.Date.valueOf(currentDate));
                 result = pst.executeUpdate();
             }
@@ -107,6 +111,9 @@ public class TransactionFrama extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setBackground(new java.awt.Color(0, 102, 102));
+        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -122,6 +129,13 @@ public class TransactionFrama extends javax.swing.JFrame {
 
         jLabel1.setText("SKU");
 
+        txtSku.setBackground(new java.awt.Color(0, 102, 102));
+        txtSku.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtSku.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnAdd.setBackground(new java.awt.Color(0, 102, 102));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +146,9 @@ public class TransactionFrama extends javax.swing.JFrame {
         lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblTotal.setText("Total Belanja");
 
+        navigateToPOS.setBackground(new java.awt.Color(0, 102, 102));
+        navigateToPOS.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        navigateToPOS.setForeground(new java.awt.Color(255, 255, 255));
         navigateToPOS.setText("Kembali");
         navigateToPOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +156,9 @@ public class TransactionFrama extends javax.swing.JFrame {
             }
         });
 
+        initReportButton.setBackground(new java.awt.Color(0, 102, 102));
+        initReportButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        initReportButton.setForeground(new java.awt.Color(255, 255, 255));
         initReportButton.setText("Cetak Struk");
         initReportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +166,9 @@ public class TransactionFrama extends javax.swing.JFrame {
             }
         });
 
+        checkoutButton.setBackground(new java.awt.Color(0, 102, 102));
+        checkoutButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        checkoutButton.setForeground(new java.awt.Color(255, 255, 255));
         checkoutButton.setText("Checkout");
         checkoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,26 +229,48 @@ public class TransactionFrama extends javax.swing.JFrame {
         
         Connection c;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");    
+            int qty = 0;
+            Class.forName("com.mysql.cj.jdbc.Driver");
             c = DriverManager.getConnection("jdbc:mysql://localhost:3306/pos", "root", "");
 
             Statement stm = c.createStatement();
             ResultSet rs = stm.executeQuery("select * from products where sku = '" + sku + "'");
-//            harga = 0;
+            //            harga = 0;
+                        
             while(rs.next()){
+                String productId = rs.getString("product_id");
+                
                 int harga_jual = rs.getInt("harga_jual");
                 int harga_beli = rs.getInt("harga_beli");
+                
+                for (int i = 0; i < tb.getRowCount(); i++) {
+                    String currentId = tb.getValueAt(i, 0).toString();
+                    
+                    if(currentId.equals(productId)) {
+                        int currentQty = Integer.parseInt(tb.getValueAt(i, 6).toString());
+                        
+                        tb.setValueAt(++currentQty, i, 6);
+                        
+                        totalHarga += harga_jual;
+                        
+                        lblTotal.setText("<html>Total Belanja<br><b>" + totalHarga + "</b></html>");
+                        
+                        return;
+                    };
+                }
+                
                 tb.addRow(new Object[]{
-                    rs.getString("products_id"),
+                    productId,
                     rs.getString("barcode"),
                     rs.getString("sku"),
                     rs.getString("name"),
                     harga_jual,
-                    harga_beli
+                    harga_beli,
+                    1
                 });
                 totalHarga += harga_jual;
             }
-            
+
             lblTotal.setText("<html>Total Belanja<br><b>" + totalHarga + "</b></html>");
         } catch (ClassNotFoundException e) {
             System.out.println(e);
@@ -271,20 +316,21 @@ public class TransactionFrama extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TransactionFrama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TransactionFrama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TransactionFrama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TransactionFrama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TransactionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TransactionFrama().setVisible(true);
+                new TransactionFrame().setVisible(true);
             }
         });
     }
